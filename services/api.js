@@ -15,13 +15,13 @@ class Api {
 	// dislyte api methods
 
 	// single esper info by name
-	getEsperInfo(esperName) {
-		return Http.get('/espers/' + esperName).data;
+	static async getEsperInfo(esperName) {
+		return (await Http.get('/espers/' + esperName)).data;
 	}
 	
 	// single esper info by god name
-	getEsperInfoGod(esperGodName) {
-		return Http.get('/espers/gods/' + esperGodName).data;
+	static async getEsperInfoGod(esperGodName) {
+		return (await Http.get('/espers/gods/' + esperGodName)).data;
 	}
 
 	// all espers list
