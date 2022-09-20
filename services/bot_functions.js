@@ -1,5 +1,7 @@
 const Api = require('./api');
 const { EmbedBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { EsperStatsCalculation } = require('../src/game-logic/esper_stats_calculation');
 
 class BotFunctions {
 	
@@ -19,7 +21,8 @@ class BotFunctions {
 			.setTitle('Espers List')
 			.setDescription('Here ya go, buddy! Let me list you all the espers in the game! 😍📃')
 			.addFields(
-				{ name: 'Espers - God', value: espers_list.map((esper) => `${esper.name} - ${esper.god}`).join('\n'), inline: true },
+				{ name: 'Total Espers', value: (espers_list.length).toString(), inline: false },
+				{ name: 'Espers - God', value: espers_list.map((esper) => `${esper.name} - ${esper.god}`).join('\n'), inline: false },
 			)
 
 		message.reply({embeds: [embed]});
@@ -30,8 +33,10 @@ class BotFunctions {
 	static async esperByName(message, args) {
 		const esperName = (args.join(' ')).toLowerCase().replace(' ', '-');
 		try {
+			
 			const response = (await Api.getEsperInfo(esperName)).data;	
 			const esper = response.attributes;
+			
 			const embed = new EmbedBuilder()
 				.setColor('#437799')
 				.setDescription(`Hell yeah! 🤘 Here's what you've asked for dear! 🎶🎵`)
@@ -54,7 +59,8 @@ class BotFunctions {
 			
 			message.reply({embeds: [embed]});
 		} catch (error) {
-			console.log(error);
+			message.reply(`BA-BA-BAM! Sorry, I couldn't find any esper with that name. 😿 Please consider checking for a possible typo!`);
+			console.log('There was an error with this request: ', error);
 		}
 	}
 
@@ -87,11 +93,12 @@ class BotFunctions {
 			
 			message.reply({embeds: [embed]});
 		} catch (error) {
-			console.log(error);
+			message.reply(`BA-BA-BAM! Sorry, I couldn't find any esper with that name. 😿 Please consider checking for a possible typo!`);
+			console.log('There was an error with this request: ', error);
 		}
 	}
 
-	// esper skills
+	// esper skills by name
 
 	static async esperSkillsByName(message, args) {
 		const esperName = (args.join(' ')).toLowerCase().replace(' ', '-');
@@ -104,15 +111,76 @@ class BotFunctions {
 				.setTitle(`${esper.name} - ${esper.deity_name}`)
 				.setImage(esper.picture.data.attributes.url)
 				.addFields(
-					{ name: esper.esper_elements[0].skill_number, value: `${esper.esper_elements[0].name} - type: ${esper.esper_elements[0].type} - cooldown: ${esper.esper_elements[0].cooldown} \n ${esper.esper_elements[0].description}`, inline: true },
-					{ name: esper.esper_elements[1].skill_number, value: `${esper.esper_elements[1].name} - type: ${esper.esper_elements[1].type} - cooldown: ${esper.esper_elements[1].cooldown} \n ${esper.esper_elements[1].description}`, inline: true },
-					{ name: esper.esper_elements[2].skill_number, value: `${esper.esper_elements[2].name} - type: ${esper.esper_elements[2].type} - cooldown: ${esper.esper_elements[2].cooldown} \n ${esper.esper_elements[2].description}`, inline: true },
-					{ name: esper.esper_elements[3].skill_number, value: `${esper.esper_elements[3].name} - type: ${esper.esper_elements[3].type} - cooldown: ${esper.esper_elements[3].cooldown} \n ${esper.esper_elements[3].description}`, inline: true }
+					esper.espers_elements.map((element) => { 
+						if (element.__component === 'espers-elements.skill') {
+							return { name: `${element.skill_number}`, value: `**${element.name}** - *Type: ${element.type} - Cooldown: ${element.cooldown}* \n ${element.description} `, inline: false } 
+						} else if (element.__component === 'espers-elements.captain-ability') {
+							return { name: `Captain Ability`, value: `${element.effect} `, inline: false } 
+						}		
+					}),
 				)
 			
 			message.reply({embeds: [embed]});
 		} catch (error) {
-			console.log(error);
+			message.reply(`BA-BA-BAM! Sorry, I couldn't find any esper with that name. 😿 Please consider checking for a possible typo!`);
+			console.log('There was an error with this request: ', error);
+		}
+	}
+	
+	// esper skills by god name
+
+	static async esperSkillsByGod(message, args) {
+		const godName = (args.join(' ')).toLowerCase().replace(' ', '-');
+		try {
+			const response = (await Api.getEsperInfoGod(godName)).data;	
+			const esper = response.attributes;
+			const embed = new EmbedBuilder()
+				.setColor('#437799')
+				.setDescription(`Hell yeah! 🤘 Here's what you've asked for dear! 🎶🎵`)
+				.setTitle(`${esper.name} - ${esper.deity_name}`)
+				.setImage(esper.picture.data.attributes.url)
+				.addFields(
+					esper.espers_elements.map((element) => { 
+						if (element.__component === 'espers-elements.skill') {
+							return { name: `${element.skill_number}`, value: `**${element.name}** - *Type: ${element.type} - Cooldown: ${element.cooldown}* \n ${element.description} `, inline: false } 
+						} else if (element.__component === 'espers-elements.captain-ability') {
+							return { name: `Captain Ability`, value: `${element.effect} `, inline: false } 
+						}		
+					}),
+				)
+			
+			message.reply({embeds: [embed]});
+		} catch (error) {
+			message.reply(`BA-BA-BAM! Sorry, I couldn't find any esper with that name. 😿 Please consider checking for a possible typo!`);
+			console.log('There was an error with this request: ', error);
+		}
+	}
+
+	static async buildByName(message, args) {
+		const esperName = (args.join(' ')).toLowerCase().replace(' ', '-');
+		try {
+			const response = (await Api.getEsperInfo(esperName)).data;
+			let esper = response.attributes;
+
+			esper = EsperStatsCalculation.buildEspers(esper, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9]);
+
+			const embed = new EmbedBuilder()
+				.setColor('#437799')
+				.setDescription(`Hell yeah! 🤘 Here's what you've asked for dear! 🎶🎵`)
+				.setTitle(`${esper.name} - ${esper.deity_name}`)
+				.setImage(esper.picture.data.attributes.url)
+				.addFields(
+					esper.espers_elements.map((element) => { 
+						if (element.__component === 'espers-elements.build') {
+							return { name: `${element.build_number}`, value: `**${element.name}** - *Type: ${element.type} - Cooldown: ${element.cooldown}* \n ${element.description} `, inline: false } 
+						}		
+					}),
+				)
+			
+			message.reply({embeds: [embed]});
+		} catch (error) {
+			message.reply(`BA-BA-BAM! Sorry, I couldn't find any esper with that name. 😿 Please consider checking for a possible typo!`);
+			console.log('There was an error with this request: ', error);
 		}
 	}
 

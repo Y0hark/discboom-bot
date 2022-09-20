@@ -1,7 +1,7 @@
 const { GatewayIntentBits } = require('discord.js');
 const Discord = require('discord.js');
 const config = require('../conf/config');
-const MessageController = require('../services/message_controller');
+const Controller = require('../services/controller');
 
 
 const client = new Discord.Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
@@ -14,7 +14,7 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', async message => {
-	MessageController.commandController(message);
+	Controller.commandController(message);
 });
 
 

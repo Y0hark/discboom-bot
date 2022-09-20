@@ -1,5 +1,5 @@
 const config = require('../conf/config');
-const BotFunctions = require('../services/bot_functions');
+const BotFunctions = require('./bot_functions');
 
 const commandsList = new Map();
 
@@ -7,7 +7,7 @@ config.COMMANDS_LIST.forEach((command) => {
 		commandsList.set(command.command, command.function);
 });
 
-class MessageController {
+class Controller {
 	constructor() {}
 	
 	// message controller
@@ -29,6 +29,7 @@ class MessageController {
 			message.reply(`BOOM BOOM CLAP! Sorry dear, "${command}" is not a command I know! 😿`);
 		}
 	}
+
 }
 
-module.exports = MessageController;
+module.exports = Controller;

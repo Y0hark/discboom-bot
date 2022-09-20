@@ -30,8 +30,8 @@ class Api {
 	}
 
 	// get relic config
-	getRelicsConfig() {
-		return Http.get('/relic').data;
+	static async getRelicsConfig() {
+		return (await Http.get('/relic')).data;
 	}
 
 }
