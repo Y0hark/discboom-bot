@@ -1,0 +1,257 @@
+{
+	"relic_config": {
+		"sets": [{
+				"set_name": "War Machine",
+				"set_description": "ATK +30%",
+				"set_bonus": 30,
+				"set_type": 4
+			},
+			{
+				"set_name": "Hades",
+				"set_description": "+35% Lifesteal",
+				"set_bonus": 35,
+				"set_type": 4
+			},
+			{
+				"set_name": "Abiding Panacea",
+				"set_description": "Healing Efficacy +30%",
+				"set_bonus": 30,
+				"set_type": 4
+			},
+			{
+				"set_name": "Wind Walker",
+				"set_description": "SPD +25%",
+				"set_bonus": 25,
+				"set_type": 4
+			},
+			{
+				"set_name": "Ocean Waves",
+				"set_description": "Grants a 35% chance of reducing all ability cooldown by 1 turn at the start of the Esper's turn.",
+				"set_bonus": 35,
+				"set_type": 4
+			},
+			{
+				"set_name": "Hammer of Thor",
+				"set_description": "C.DMG +40%",
+				"set_bonus": 40,
+				"set_type": 4
+			},
+			{
+				"set_name": "Tyranny of Zeus",
+				"set_description": "Damage dealt has 20% chance of Stunning the target for 1 turn.",
+				"set_bonus": 20,
+				"set_type": 4
+			},
+			{
+				"set_name": "Snow Dowager",
+				"set_description": "Grants a 25% chance of Freezing the target for one turn when taking damage",
+				"set_bonus": 25,
+				"set_type": 4
+			},
+			{
+				"set_name": "Astral Witchcraft",
+				"set_description": "Grants a 20% chance of getting an extra turn when the Esper takes action. (Only triggered once. Does not affect cooldowns)",
+				"set_bonus": 20,
+				"set_type": 4
+			},
+			{
+				"set_name": "Master Grove",
+				"set_description": "HP +25%",
+				"set_bonus": 25,
+				"set_type": 2
+			},
+			{
+				"set_name": "Stoneveins",
+				"set_description": "DEF +25%",
+				"set_bonus": 25,
+				"set_type": 2
+			},
+			{
+				"set_name": "Apollo's Bow",
+				"set_description": "ACC +25%",
+				"set_bonus": 25,
+				"set_type": 2
+			},
+			{
+				"set_name": "Sword Avatara",
+				"set_description": "Grants a 25% chance of using Counterattack upon taking damage.",
+				"set_bonus": 25,
+				"set_type": 2
+			},
+			{
+				"set_name": "Adamantine",
+				"set_description": "All allies start battle with a Shield equal to 15% of max HP. Lasts 2 turns.",
+				"set_bonus": 15,
+				"set_type": 2
+			},
+			{
+				"set_name": "Fiery Incandescence",
+				"set_description": "C.RATE +20%",
+				"set_bonus": 20,
+				"set_type": 2
+			},
+			{
+				"set_name": "The Enchanter",
+				"set_description": "Grants a 30% chance of extanding the Poison and Bleed debuffs inflected by 1 turn.",
+				"set_bonus": 30,
+				"set_type": 2
+			},
+			{
+				"set_name": "Immensus Peak",
+				"set_description": "RESIST +25%",
+				"set_bonus": 25,
+				"set_type": 2
+			},
+			{
+				"set_name": "The Light Above",
+				"set_description": "Begins the battle with Immunity, which lasts for 1 turn.",
+				"set_bonus": null,
+				"set_type": 2
+			}
+		],
+		"relic_positions": [1, 2, 3, 4, 5, 6],
+		"main_stats": [{
+				"position": 1,
+				"stats": ["ATK"]
+			},
+			{
+				"position": 2,
+				"stats": ["ATK", "DEF", "HP", "ATK Bonus", "DEF Bonus", "HP Bonus", "C.RATE", "C.DMG"]
+			},
+			{
+				"position": 3,
+				"stats": ["DEF"]
+			},
+			{
+				"position": 4,
+				"stats": ["ATK", "DEF", "HP", "ATK Bonus", "DEF Bonus", "HP Bonus", "ACC", "RESIST"]
+			},
+			{
+				"position": 5,
+				"stats": ["HP"]
+			},
+			{
+				"position": 6,
+				"stats": ["ATK", "DEF", "HP", "ATK Bonus", "DEF Bonus", "HP Bonus", "SPD"]
+			}
+		],
+		"sub_stats": ["ATK", "DEF", "HP", "ATK Bonus", "DEF Bonus", "HP Bonus", "SPD", "ACC", "RESIST", "C.RATE", "C.DMG"],
+		"main_stats_conf": [{
+				"stat_name": "SPD",
+				"base": 15,
+				"growth": 2
+			}, {
+				"stat_name": "ATK Bonus",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "DEF Bonus",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "HP Bonus",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "ACC",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "RESIST",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "C.RATE",
+				"base": 8,
+				"growth": 3
+			},
+			{
+				"stat_name": "C.DMG",
+				"base": 10,
+				"growth": 5
+			},
+			{
+				"stat_name": "ATK",
+				"base": 40,
+				"growth": 18
+			},
+			{
+				"stat_name": "DEF",
+				"base": 40,
+				"growth": 18
+			},
+			{
+				"stat_name": "HP",
+				"base": 600,
+				"growth": 220
+			}
+		],
+		"sub_stats_conf": [{
+				"stat_name": "SPD",
+				"base": 4,
+				"growth": 4
+			}, {
+				"stat_name": "ATK Bonus",
+				"base": 4,
+				"growth": 4
+			},
+			{
+				"stat_name": "DEF Bonus",
+				"base": 4,
+				"growth": 4
+			},
+			{
+				"stat_name": "HP Bonus",
+				"base": 4,
+				"growth": 4
+			},
+			{
+				"stat_name": "ACC",
+				"base": 4,
+				"growth": 4
+			},
+			{
+				"stat_name": "RESIST",
+				"base": 4,
+				"growth": 4
+			},
+			{
+				"stat_name": "C.RATE",
+				"base": 5,
+				"growth": 5
+			},
+			{
+				"stat_name": "C.DMG",
+				"base": 5,
+				"growth": 5
+			},
+			{
+				"stat_name": "ATK",
+				"base": 20,
+				"growth": 20
+			},
+			{
+				"stat_name": "DEF",
+				"base": 20,
+				"growth": 20
+			},
+			{
+				"stat_name": "HP",
+				"base": 400,
+				"growth": 400
+			}
+		],
+		"relics_rules": {
+			"main_stat_per_relic": 1,
+			"sub_stat_per_relic": 4,
+			"max_main_stat_upgrades": 15,
+			"max_sub_stat_upgrades": 5,
+			"max_duplicated_substat": 0
+		}
+	}
+}
