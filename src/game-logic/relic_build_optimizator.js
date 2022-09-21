@@ -21,7 +21,7 @@ class RelicBuildOptimizator {
 					if (subStat.stat === "ACC") {
 						totalAcc += relic.subStat.value;
 					}
-					if (subStat.stat === "RES") {
+					if (subStat.stat === "RESIST") {
 						totalRes += relic.subStat.value;
 					}
 				});
@@ -37,15 +37,41 @@ class RelicBuildOptimizator {
 	}
 
 	static optimizeBuild(relicBuild, subStat1, subStat2, subStat3, subStat4, totalCrate, totalAcc, totalRes, relic_config) {
+		const sub_stat_conf_crate = relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === "C.RATE")[0];
+		const sub_stat_conf_acc = relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === "ACC")[0];
+		const sub_stat_conf_res = relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === "RESIST")[0];
+
+		const subStats = [subStat1, subStat2, subStat3, subStat4];
+		const total = [{subName: "C.RATE", total: totalCrate}, {subName: "ACC", total: totalAcc}, {subName: "RESIST", total: totalRes}];
+		const optiNeeds = []
+
+		total.forEach(subStat => {
+			if (subStat.total > 100) {
+				const subStatConf = relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === subStat.subName)[0];
+				let diff = subStat.total - 100;
+				let dots = diff / subStatConf.growth;
+
+				optiNeeds.push({subName: subStat.subName, dots: dots});
+			}
+		});
+
 		
+
+
+
 		if (totalCrate > 100) {
 			const diff = totalCrate - 100;
-			const dots = diff / relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === "C.RATE")[0].growth;
+			const dots = diff / sub_stat_conf_crate.growth;
+
 			for (let i = 0; i < dots; i++) {
 				relicBuild.forEach(relic => {
 					relic.forEach(subStat => {
-						if (subStat.stat === "C.RATE") {
-							subStat.value -= relic_config.sub_stats_conf.filter(sub_stat => sub_stat.stat === "C.RATE")[0].growth;
+						if (subStat.stat === "C.RATE" && subStat.value > sub_stat_conf_crate.base) {
+							subStat.value -= sub_stat_conf_crate.growth;
+							if (subStat1 === "ACC" && totalAcc < 100) {
+								relic.subStat1.value += sub_stat_conf_acc.growth;
+								totalAcc += sub_stat_conf_acc.growth;
+							}
 						}
 					});
 				});

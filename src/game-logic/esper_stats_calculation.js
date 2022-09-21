@@ -7,6 +7,7 @@ class EsperStatsCalculation {
 	// esper calculation methods
 
 	static buildEsper(esper, set1, set2, mainStat1, mainStat2, mainStat3, subStat1, subStat2, subStat3, subStat4, optimization) {
+
 		const relic_build = RelicBuildGenerator.generateRelicSet(set1, set2, mainStat1, mainStat2, mainStat3, subStat1, subStat2, subStat3, subStat4, optimization);
 	
 		esper.hp = this.calculateEsperHp(esper, relic_build);
