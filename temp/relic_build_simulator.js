@@ -186,7 +186,7 @@ class RelicBuildSimulator {
 	}
 
 	calculateFlatStats(esperBuild, relic_config) {
-		esperBuild.flat_hp = relic_config.
+		esperBuild.flat_hp = relic_config
 	}
 
 }
